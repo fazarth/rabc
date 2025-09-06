@@ -5,6 +5,10 @@ const Permission = require('./Permission');
 const UserRole = require('./UserRole');
 const RolePermission = require('./RolePermission');
 const Resource = require('./Resource');
+const RoomDetail = require('./RoomDetail');
+const HealthDetail = require('./HealthDetail');
+const VehicleDetail = require('./VehicleDetail');
+const CourseDetail = require('./CourseDetail');
 
 // Associations
 User.belongsToMany(Role, { through: UserRole, foreignKey: 'userId' });
@@ -21,6 +25,10 @@ module.exports = {
   UserRole,
   RolePermission,
   Resource,
+  RoomDetail,
+  HealthDetail,
+  VehicleDetail,
+  CourseDetail,
 };
 
 // Sync function for migrations

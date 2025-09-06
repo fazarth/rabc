@@ -10,6 +10,13 @@ module.exports = {
   async create(req, res) {
     const userId = req.user.id;
     if (!await isOwner(userId)) return res.status(403).json({ error: 'Forbidden' });
+    if (!req.body.resourceName || !req.body.resourceType) {
+      return res.status(400).json({ error: 'resourceName and resourceType are required' });
+    }
+    const resources = await Resource.findAll({ where: { ownerId: userId } });
+    if (resources.some(resource => resource.resourceName === req.body.resourceName)) {
+      return res.status(403).json({ error: 'Resource Name already exists' });
+    }
     const { resourceName, resourceType, description } = req.body;
     const resource = await Resource.create({ resourceName, resourceType, description, ownerId: userId });
     res.status(201).json(resource);
